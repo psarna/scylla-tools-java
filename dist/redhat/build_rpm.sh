@@ -62,10 +62,10 @@ fi
 VERSION=$(./SCYLLA-VERSION-GEN)
 SCYLLA_VERSION=$(cat build/SCYLLA-VERSION-FILE)
 SCYLLA_RELEASE=$(cat build/SCYLLA-RELEASE-FILE)
-git archive --format=tar --prefix=scylla-tools-$SCYLLA_VERSION/ HEAD -o build/scylla-tools-$VERSION.tar
-cp dist/redhat/scylla-tools.spec.in build/scylla-tools.spec
-sed -i -e "s/@@VERSION@@/$SCYLLA_VERSION/g" build/scylla-tools.spec
-sed -i -e "s/@@RELEASE@@/$SCYLLA_RELEASE/g" build/scylla-tools.spec
+git archive --format=tar --prefix=scylla-enterprise-tools-$SCYLLA_VERSION/ HEAD -o build/scylla-enterprise-tools-$VERSION.tar
+cp dist/redhat/scylla-tools.spec.in build/scylla-enterprise-tools.spec
+sed -i -e "s/@@VERSION@@/$SCYLLA_VERSION/g" build/scylla-enterprise-tools.spec
+sed -i -e "s/@@RELEASE@@/$SCYLLA_RELEASE/g" build/scylla-enterprise-tools.spec
 
-sudo mock --buildsrpm --root=$TARGET --resultdir=`pwd`/build/srpms --spec=build/scylla-tools.spec --sources=build/scylla-tools-$VERSION.tar
-sudo mock --rebuild --root=$TARGET --resultdir=`pwd`/build/rpms build/srpms/scylla-tools-$VERSION*.src.rpm
+sudo mock --buildsrpm --root=$TARGET --resultdir=`pwd`/build/srpms --spec=build/scylla-enterprise-tools.spec --sources=build/scylla-enterprise-tools-$VERSION.tar
+sudo mock --rebuild --root=$TARGET --resultdir=`pwd`/build/rpms build/srpms/scylla-enterprise-tools-$VERSION*.src.rpm

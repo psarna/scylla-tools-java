@@ -31,7 +31,7 @@ build-stamp:
 	# if LANG is not UTF-8, compilation will failed
 	env LANG=en_US.UTF-8 $(ANT) jar
 	cd pylib && python setup.py install --no-compile --install-layout deb \
-		--root $(CURDIR)/debian/scylla-tools
+		--root $(CURDIR)/debian/scylla-enterprise-tools
 
 	touch build-stamp
 
