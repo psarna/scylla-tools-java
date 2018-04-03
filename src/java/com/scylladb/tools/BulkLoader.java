@@ -701,11 +701,13 @@ public class BulkLoader {
                                         Field f = ac.getField("instance");
                                         AbstractType<?> atype = (AbstractType<?>) f.get(null);
                                         bindCustomType(ct, atype);
+                                        continue;
                                     } catch (ClassNotFoundException | IllegalAccessException | NoSuchFieldException
                                             | SecurityException ce) {
                                         throw e;
                                     }
                                 }
+                                throw e;
                             }
                         }
                                                 
