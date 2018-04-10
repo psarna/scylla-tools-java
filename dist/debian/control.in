@@ -8,7 +8,7 @@ Standards-Version: 3.9.5
 
 Package: scylla-enterprise-tools
 Architecture: all
-Depends: scylla-enterprise-conf, scylla-enterprise-tools-core (>= 2.0~rc0), ${misc:Depends}, @@BUILD_DEPENDS@@
+Depends: scylla-enterprise-conf, scylla-enterprise-tools-core (>= 2018.1~rc0), ${misc:Depends}, @@BUILD_DEPENDS@@
 Recommends: ntp | time-daemon
 Conflicts: cassandra, scylla-tools (<< 2.2)
 Replaces: scylla-tools (<< 2.2)
