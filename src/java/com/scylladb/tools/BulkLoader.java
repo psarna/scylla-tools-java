@@ -1056,11 +1056,7 @@ public class BulkLoader {
 
             CQLClient client = new CQLClient(options, keyspace);
             SSTableToCQL ssTableToCQL = new SSTableToCQL(keyspace, client);
-            try {
-                ssTableToCQL.stream(options.directory);
-            } finally {
-                client.close();
-            }
+            ssTableToCQL.stream(options.directory);
             System.exit(0);
         } catch (Throwable t) {
             t.printStackTrace();
