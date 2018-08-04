@@ -478,7 +478,7 @@ public class BulkLoader {
         }
 
         @Override
-        public void finish() {
+        public synchronized void finish() {
             if (batchStatement != null && !batchStatement.getStatements().isEmpty()) {
                 send(batchStatement);
                 batchStatement = null;
@@ -517,7 +517,10 @@ public class BulkLoader {
             }
         }
 
-        private void send(Object callback, DecoratedKey key, Statement s) {
+        // This method has to be synchronized because it can be called from different threads.
+        // Usually it's called just from a single thread - the one that owns the client but for
+        // prepared statements it's called from callbacks that have their own thread pool which runs them.
+        private synchronized void send(Object callback, DecoratedKey key, Statement s) {
             if (batch && tokenKey == callback && batchStatement != null && batchStatement.requestSizeInBytes(PROTOCOL_VERSION, codecRegistry) < maxBatchSize
                     && this.key.equals(key)) {
                 batchStatement.add(s);
