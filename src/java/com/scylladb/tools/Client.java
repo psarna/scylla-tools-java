@@ -37,7 +37,7 @@ interface Client {
 
     IPartitioner getPartitioner();
 
-    void processStatment(Object callback, DecoratedKey key, long timestamp,
+    void processStatment(DecoratedKey key, long timestamp,
             String what, List<Object> objects);
 
 }
