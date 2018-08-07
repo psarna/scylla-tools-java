@@ -462,7 +462,7 @@ public class BulkLoader {
         }
 
         private static final int maxStatements = 256;
-        private static final int maxBatchStatements = 256;
+        private static final int maxBatchSize = 100 * 1024; // 100 kB
         private final Semaphore semaphore = new Semaphore(maxStatements);
         private final Semaphore preparations = new Semaphore(maxStatements);
 
@@ -518,7 +518,7 @@ public class BulkLoader {
         }
 
         private void send(Object callback, DecoratedKey key, Statement s) {
-            if (batch && tokenKey == callback && batchStatement != null && batchStatement.size() < maxBatchStatements
+            if (batch && tokenKey == callback && batchStatement != null && batchStatement.requestSizeInBytes(PROTOCOL_VERSION, codecRegistry) < maxBatchSize
                     && this.key.equals(key)) {
                 batchStatement.add(s);
                 return;
